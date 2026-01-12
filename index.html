@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Grade Calculator</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
+        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 12px #eee; }
+        h2 { color: #333; }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="card" id="result-card">
+    <h2>Result Summary</h2>
+    <div id="output">Calculating...</div>
+</div>
+
+<script>
+    function calculateResults() {
+        let subjects = ["Math", "Science", "English", "History", "Geography"];
+        let marks = [];
+        let total = 0;
+
+        // 1. Ask user for marks of 5 subjects
+        for (let i = 0; i < 5; i++) {
+            let input = prompt(`Enter marks for ${subjects[i]}:`);
+            let mark = parseFloat(input);
+            
+            // Basic validation
+            if (isNaN(mark)) mark = 0; 
+            
+            marks.push(mark);
+            total += mark;
+        }
+
+        // 2. Calculate Average
+        let average = total / 5;
+
+        // 3. Provide feedback (Pass if average >= 40)
+        let status = (average >= 40) ? "PASSED" : "FAILED";
+        let statusClass = (average >= 40) ? "pass" : "fail";
+
+        // 4. Display results
+        document.getElementById('output').innerHTML = `
+            <p>Total Marks: <strong>${total}</strong> / 500</p>
+            <p>Average: <strong>${average.toFixed(2)}%</strong></p>
+            <p>Status: <span class="${statusClass}">${status}</span></p>
+        `;
+    }
+
+    // Run the function when the page loads
+    window.onload = calculateResults;
+</script>
+
+</body>
+</html>
