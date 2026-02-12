@@ -1,58 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Student Grade Calculator</title>
-    <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; }
-        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 2px 2px 12px #eee; }
-        h2 { color: #333; }
-        .pass { color: green; font-weight: bold; }
-        .fail { color: red; font-weight: bold; }
-    </style>
-</head>
-<body>
+#include <iostream>
+#include <string>
+#include <iomanip> // Used for formatting decimal places
 
-<div class="card" id="result-card">
-    <h2>Result Summary</h2>
-    <div id="output">Calculating...</div>
-</div>
+using namespace std;
 
-<script>
-    function calculateResults() {
-        let subjects = ["Math", "Science", "English", "History", "Geography"];
-        let marks = [];
-        let total = 0;
+int main() {
+    string studentName;
+    float math, science, english, history, computer;
+    float total, percentage;
 
-        // 1. Ask user for marks of 5 subjects
-        for (let i = 0; i < 5; i++) {
-            let input = prompt(`Enter marks for ${subjects[i]}:`);
-            let mark = parseFloat(input);
-            
-            // Basic validation
-            if (isNaN(mark)) mark = 0; 
-            
-            marks.push(mark);
-            total += mark;
-        }
+    // 1. Input Section
+    cout << "--- Student Mark Calculator ---" << endl;
+    cout << "Enter Student Name: ";
+    getline(cin, studentName);
 
-        // 2. Calculate Average
-        let average = total / 5;
+    cout << "Enter marks for 5 subjects (out of 100 each):" << endl;
+    cout << "Math: "; cin >> math;
+    cout << "Science: "; cin >> science;
+    cout << "English: "; cin >> english;
+    cout << "History: "; cin >> history;
+    cout << "Computer: "; cin >> computer;
 
-        // 3. Provide feedback (Pass if average >= 40)
-        let status = (average >= 40) ? "PASSED" : "FAILED";
-        let statusClass = (average >= 40) ? "pass" : "fail";
+    // 2. Calculation Section
+    total = math + science + english + history + computer;
+    percentage = (total / 500) * 100;
 
-        // 4. Display results
-        document.getElementById('output').innerHTML = `
-            <p>Total Marks: <strong>${total}</strong> / 500</p>
-            <p>Average: <strong>${average.toFixed(2)}%</strong></p>
-            <p>Status: <span class="${statusClass}">${status}</span></p>
-        `;
+    // 3. Output Section
+    cout << "\n------------------------------" << endl;
+    cout << "Report Card for: " << studentName << endl;
+    cout << "Total Marks: " << total << "/500" << endl;
+    cout << "Percentage: " << fixed << setprecision(2) << percentage << "%" << endl;
+
+    // 4. Grading Logic
+    cout << "Grade: ";
+    if (percentage >= 90) {
+        cout << "A+ (Excellent!)";
+    } else if (percentage >= 75) {
+        cout << "A (Very Good)";
+    } else if (percentage >= 60) {
+        cout << "B (Good)";
+    } else if (percentage >= 40) {
+        cout << "C (Pass)";
+    } else {
+        cout << "F (Fail)";
     }
+    cout << "\n------------------------------" << endl;
 
-    // Run the function when the page loads
-    window.onload = calculateResults;
-</script>
-
-</body>
-</html>
+    return 0;
+}
